@@ -55,7 +55,7 @@ function addChoice() {
             case "Add roles":
                 addRoles();
                 break;
-            case "Add employee(s)":
+            case "Add employee":
                 addEmployee();
                 break;
             case "Go back to previous menu":
@@ -96,29 +96,29 @@ function viewChoice() {
     })
 };
 
-function addChoice() {
+function updateChoice() {
     inquirer.prompt([
         {
             type: "list",
-            name: "addFinal",
+            name: "updateFinal",
             message: "Please select from one of the following options:",
             choices: [
-                "Add department",
-                "Add roles",
-                "Add employee",
+                "Update department",
+                "Update roles",
+                "Update employee",
                 "Go back to previous menu"
             ]
         }
-    ]).then(create => {
-        switch (create.addFinal) {
-            case "Add department":
-                addDepartment();
+    ]).then(update => {
+        switch (update.updateFinal) {
+            case "Update department":
+                updateDepartment();
                 break;
-            case "Add roles":
-                addRoles();
+            case "Update roles":
+                updateRoles();
                 break;
-            case "Add employee":
-                addEmployee();
+            case "Update employee":
+                updateEmployee();
                 break;
             case "Go back to previous menu":
                 XassignPathX();
