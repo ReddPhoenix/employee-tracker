@@ -160,6 +160,7 @@ function updateChoice() {
 // Add functions
 
 // Add department function
+// Department require name
 function addDepartment() {
     inquirer.prompt([
         {
@@ -172,12 +173,37 @@ function addDepartment() {
             if (err) throw err;
             console.log("Department was added!")
             addChoice();
-        })
+        });
     });    
 };
 
 // Add roles function
-
+// Roles require title, salary and department_id
+function addRoles() {
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "rolesTitle",
+            message: "Enter the title of the role you would like to add: "
+        },
+        {
+            type: "input",
+            name: "rolesSalary",
+            message: "Enter a salary for the role: "
+        },
+        {
+            type: "input",
+            name: "rolesDeptId",
+            message: "Enter a department ID for the role: "
+        }
+    ]).then(function (choice) {
+        connection.query("INSERT INTO role (title, salary, department_id) VALUES (?,?,?)", [choice.rolesTitle, choice.rolesSalary, choice.rolesDeptId], function (err, res) {
+            if (err) throw err;
+            console.log("Role was added!")
+            addChoice();
+        });
+    });    
+};
 
 // Add employees function
 
