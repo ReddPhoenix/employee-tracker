@@ -251,7 +251,13 @@ function viewDepartment() {
 };
 
 // View roles function
-
+function viewRoles() {
+    connection.query("SELECT * FROM role", function (err, res) {
+        if (err) throw err;
+        console.table(res);
+        viewChoice();
+    });
+};
 
 // View employees function
 
