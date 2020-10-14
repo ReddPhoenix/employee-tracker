@@ -4,12 +4,14 @@ const mysql = require("mysql");
 const cTable = require("console.table");
 // const db = require("db");
 
+// Require and configure dotenv
 require('dotenv').config();
 
 // db.connect({
 //     password: process.env.DB_PASS
 //   })
 
+// Connection to mysql
 const connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
@@ -20,10 +22,11 @@ const connection = mysql.createConnection({
 
 connection.connect(function (error) {
     if (error) throw error;
-    console.log('connected!', connection.threadId);
-    connection.end();
+    // console.log('connected!', connection.threadId);
+    // connection.end();
 });
 
+// Initial menu
 function companyRoster() {
     inquirer.prompt([
         {
@@ -55,8 +58,10 @@ function companyRoster() {
     }) 
 };
 
+// Run app
 companyRoster();
 
+// Menu to select options to add department, roles or employees
 function addChoice() {
     inquirer.prompt([
         {
@@ -88,6 +93,7 @@ function addChoice() {
     })
 };
 
+// Menu to select options to view departments, roles or employees
 function viewChoice() {
     inquirer.prompt([
         {
@@ -119,6 +125,7 @@ function viewChoice() {
     })
 };
 
+// Menu to select options to update roles
 function updateChoice() {
     inquirer.prompt([
         {
@@ -149,3 +156,51 @@ function updateChoice() {
         }
     })
 };
+
+// Add functions
+
+// Add department function
+function addDepartment() {
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "department",
+            message: "Enter the department name you would like to add: "
+        }
+    ]).then(function (choice) {
+        connection.query("INSERT INTO department (name) VALUES (?)", [choice.department], function (err, res) {
+            if (err) throw err;
+            console.log("Department was added!")
+            addChoice();
+        })
+    });    
+};
+
+// Add roles function
+
+
+// Add employees function
+
+
+
+// View functions
+
+// View department function
+
+
+// View roles function
+
+
+// View employees function
+
+
+
+// Update functions
+
+// Update department
+
+
+// Update roles
+
+
+// Update employee
