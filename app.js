@@ -206,7 +206,37 @@ function addRoles() {
 };
 
 // Add employees function
-
+// Employee requires first_name, last_name, role_id and manager_id
+function addEmployee() {
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "firstName",
+            message: "Enter the employee's first name: "
+        },
+        {
+            type: "input",
+            name: "lastName",
+            message: "Enter the employee's last name: "
+        },
+        {
+            type: "input",
+            name: "roleId",
+            message: "Enter a role ID for the employee: "
+        },
+        {
+            type: "input",
+            name: "managerId",
+            message: "Enter the ID for the manager responsible for the employee (Enter 0 if no manager is assigned): "
+        }
+    ]).then(function (choice) {
+        connection.query("INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?)", [choice.firstName, choice.lastName, choice.roleId, choice.managerId], function (err, res) {
+            if (err) throw err;
+            console.log("Employee was added!")
+            addChoice();
+        });
+    });    
+};
 
 
 // View functions
