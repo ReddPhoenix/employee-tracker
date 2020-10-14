@@ -2,19 +2,19 @@
 const inquirer = require("inquirer");
 const mysql = require("mysql");
 const cTable = require("console.table");
-const db = require("db");
+// const db = require("db");
 
 require('dotenv').config();
 
-db.connect({
-    password: process.env.DB_PASS
-  })
+// db.connect({
+//     password: process.env.DB_PASS
+//   })
 
 const connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
-    password: DB_Pass,
+    password: process.env.DB_PASS,
     database: "roster_db",
 });
 
