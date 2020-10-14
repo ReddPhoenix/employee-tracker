@@ -115,8 +115,8 @@ function viewChoice() {
             case "View roles":
                 viewRoles();
                 break;
-            case "View employee":
-                viewEmployee();
+            case "View employees":
+                viewEmployees();
                 break;
             case "Go back to previous menu":
                 XassignPathX();
@@ -260,7 +260,13 @@ function viewRoles() {
 };
 
 // View employees function
-
+function viewEmployees() {
+    connection.query("SELECT * FROM employee", function (err, res) {
+        if (err) throw err;
+        console.table(res);
+        viewChoice();
+    });
+};
 
 
 // Update functions
