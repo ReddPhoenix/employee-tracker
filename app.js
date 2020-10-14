@@ -108,7 +108,7 @@ function viewChoice() {
             ]
         }
     ]).then(view => {
-        switch (create.viewFinal) {
+        switch (view.viewFinal) {
             case "View departments":
                 viewDepartment();
                 break;
@@ -242,7 +242,13 @@ function addEmployee() {
 // View functions
 
 // View department function
-
+function viewDepartment() {
+    connection.query("SELECT * FROM department", function (err, res) {
+        if (err) throw err;
+        console.table(res);
+        viewChoice();
+    });
+};
 
 // View roles function
 
