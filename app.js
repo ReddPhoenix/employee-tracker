@@ -61,6 +61,14 @@ function companyRoster() {
 // Run app
 companyRoster();
 
+// End app
+function endChoice() {
+    console.log("\n")
+    console.log("Goodbye!!!");
+    connection.end();
+    process.exit();
+};
+
 // Menu to select options to add department, roles or employees
 function addChoice() {
     inquirer.prompt([
@@ -72,7 +80,7 @@ function addChoice() {
                 "Add department",
                 "Add roles",
                 "Add employee",
-                "Go back to previous menu"
+                "Go to Main Menu"
             ]
         }
     ]).then(create => {
@@ -86,8 +94,8 @@ function addChoice() {
             case "Add employee":
                 addEmployee();
                 break;
-            case "Go back to previous menu":
-                XassignPathX();
+            case "Go to Main Menu":
+                companyRoster();
                 break;
         }
     })
@@ -104,7 +112,7 @@ function viewChoice() {
                 "View departments",
                 "View roles",
                 "View employees",
-                "Go back to previous menu"
+                "Go to Main Menu"
             ]
         }
     ]).then(view => {
@@ -118,8 +126,8 @@ function viewChoice() {
             case "View employees":
                 viewEmployees();
                 break;
-            case "Go back to previous menu":
-                XassignPathX();
+            case "Go to Main Menu":
+                companyRoster();
                 break;
         }
     })
@@ -133,10 +141,10 @@ function updateChoice() {
             name: "updateFinal",
             message: "Please select from one of the following options:",
             choices: [
-                "Update department",
-                "Update roles",
-                "Update employee",
-                "Go back to previous menu"
+                // "Update department",
+                // "Update roles",
+                "Update employee role",
+                "Go to Main Menu"
             ]
         }
     ]).then(update => {
@@ -147,11 +155,11 @@ function updateChoice() {
             case "Update roles":
                 updateRoles();
                 break;
-            case "Update employee":
+            case "Update employee role":
                 updateEmployee();
                 break;
-            case "Go back to previous menu":
-                XassignPathX();
+            case "Go to Main Menu":
+                companyRoster();
                 break;
         }
     })
@@ -171,7 +179,9 @@ function addDepartment() {
     ]).then(function (choice) {
         connection.query("INSERT INTO department (name) VALUES (?)", [choice.department], function (err, res) {
             if (err) throw err;
-            console.log("Department was added!")
+            console.log("\n");
+            console.log("Department was added!");
+            console.log("\n");
             addChoice();
         });
     });    
@@ -199,7 +209,9 @@ function addRoles() {
     ]).then(function (choice) {
         connection.query("INSERT INTO role (title, salary, department_id) VALUES (?,?,?)", [choice.rolesTitle, choice.rolesSalary, choice.rolesDeptId], function (err, res) {
             if (err) throw err;
-            console.log("Role was added!")
+            console.log("\n");
+            console.log("Role was added!");
+            console.log("\n");
             addChoice();
         });
     });    
@@ -232,7 +244,9 @@ function addEmployee() {
     ]).then(function (choice) {
         connection.query("INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?)", [choice.firstName, choice.lastName, choice.roleId, choice.managerId], function (err, res) {
             if (err) throw err;
+            console.log("\n");
             console.log("Employee was added!")
+            console.log("\n");
             addChoice();
         });
     });    
@@ -245,6 +259,7 @@ function addEmployee() {
 function viewDepartment() {
     connection.query("SELECT * FROM department", function (err, res) {
         if (err) throw err;
+        console.log("\n");
         console.table(res);
         viewChoice();
     });
@@ -254,6 +269,7 @@ function viewDepartment() {
 function viewRoles() {
     connection.query("SELECT * FROM role", function (err, res) {
         if (err) throw err;
+        console.log("\n");
         console.table(res);
         viewChoice();
     });
@@ -263,6 +279,7 @@ function viewRoles() {
 function viewEmployees() {
     connection.query("SELECT * FROM employee", function (err, res) {
         if (err) throw err;
+        console.log("\n");
         console.table(res);
         viewChoice();
     });
@@ -290,7 +307,10 @@ function updateEmployee() {
     ]).then(function (choice) {
         connection.query("UPDATE employee SET role_id=? WHERE id=?", [choice.newRoleId, choice.empId], function (err, res) {
             if (err) throw err;
+            console.log("\n");
             console.log("Employee role updated!");
+            console.log("\n");
+            updateChoice();
         });
     });
 };
