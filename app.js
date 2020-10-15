@@ -270,11 +270,33 @@ function viewEmployees() {
 
 
 // Update functions
-
+// Update employee roles
+function updateEmployee() {
+    connection.query("SELECT * FROM employee", function (err, res) {
+        console.log("\n");
+        console.table(res);
+    });
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "empId",
+            message: "Enter the ID of the employee to update: "
+        },
+        {
+            input: "input",
+            name: "newRoleId",
+            message: "Enter the new Role ID for the employee: "
+        }
+    ]).then(function (choice) {
+        connection.query("UPDATE employee SET role_id=? WHERE id=?", [choice.newRoleId, choice.empId], function (err, res) {
+            if (err) throw err;
+            console.log("Employee role updated!");
+        });
+    });
+};
 // Update department
 
 
-// Update roles
 
 
 // Update employee
