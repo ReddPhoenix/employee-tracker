@@ -247,7 +247,7 @@ function addEmployee() {
             {
                 type: "input",
                 name: "managerId",
-                message: "Enter the ID for the manager responsible for the employee (Enter 0 if no manager is assigned): "
+                message: "Enter the ID for the manager responsible for the employee (Leave blank if no manager is assigned): "
             }
         ]).then(function (choice) {
             connection.query("INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?)", [choice.firstName, choice.lastName, choice.roleId, choice.managerId || null], function (err, res) {
