@@ -177,13 +177,18 @@ function addDepartment() {
             message: "Enter the department name you would like to add: "
         }
     ]).then(function (choice) {
-        connection.query("INSERT INTO department (name) VALUES (?)", [choice.department], function (err, res) {
-            if (err) throw err;
-            console.log("\n");
-            console.log("Department was added!");
-            console.log("\n");
-            addChoice();
-        });
+        if (choice.department) {
+            connection.query("INSERT INTO department (name) VALUES (?)", [choice.department], function (err, res) {
+                if (err) throw err;
+                console.log("\n");
+                console.log("Department was added!");
+                console.log("\n");
+                addChoice();
+            })
+        } else {
+            console.log("You must enter a department name!");
+            addDepartment();
+        }
     });    
 };
 
@@ -220,36 +225,40 @@ function addRoles() {
 // Add employees function
 // Employee requires first_name, last_name, role_id and manager_id
 function addEmployee() {
-    inquirer.prompt([
-        {
-            type: "input",
-            name: "firstName",
-            message: "Enter the employee's first name: "
-        },
-        {
-            type: "input",
-            name: "lastName",
-            message: "Enter the employee's last name: "
-        },
-        {
-            type: "input",
-            name: "roleId",
-            message: "Enter a role ID for the employee: "
-        },
-        {
-            type: "input",
-            name: "managerId",
-            message: "Enter the ID for the manager responsible for the employee (Enter 0 if no manager is assigned): "
-        }
-    ]).then(function (choice) {
-        connection.query("INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?)", [choice.firstName, choice.lastName, choice.roleId, choice.managerId], function (err, res) {
-            if (err) throw err;
-            console.log("\n");
-            console.log("Employee was added!")
-            console.log("\n");
-            addChoice();
+    connection.query("SELECT * FROM role", function (err, res) {
+        roleId = res.map(r => ({value: r.id, name: r.title }));
+        inquirer.prompt([
+            {
+                type: "input",
+                name: "firstName",
+                message: "Enter the employee's first name: "
+            },
+            {
+                type: "input",
+                name: "lastName",
+                message: "Enter the employee's last name: "
+            },
+            {
+                type: "list",
+                name: "roleId",
+                message: "Enter a role ID for the employee: ",
+                choices: roleId
+            },
+            {
+                type: "input",
+                name: "managerId",
+                message: "Enter the ID for the manager responsible for the employee (Enter 0 if no manager is assigned): "
+            }
+        ]).then(function (choice) {
+            connection.query("INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?)", [choice.firstName, choice.lastName, choice.roleId, choice.managerId || null], function (err, res) {
+                if (err) throw err;
+                console.log("\n");
+                console.log("Employee was added!")
+                console.log("\n");
+                addChoice();
+            });
         });
-    });    
+    });
 };
 
 
@@ -292,7 +301,7 @@ function updateEmployee() {
     connection.query("SELECT * FROM employee", function (err, res) {
         console.log("\n");
         console.table(res);
-    });
+    
     inquirer.prompt([
         {
             type: "input",
@@ -312,6 +321,7 @@ function updateEmployee() {
             console.log("\n");
             updateChoice();
         });
+    });
     });
 };
 // Update department
