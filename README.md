@@ -13,16 +13,21 @@
 - [Questions](#questions)
 
  ## **Description**
-  CLI application that allows a user to maintain a company roster. The application is able to add departments/roles/employees, view departments/roles/employees, and update employee roles.
+  CLI application that allows a user to maintain a company roster. The application is able to add departments/roles/employees, view departments/roles/employees, and update employee roles. App uses MySQL database to create, store and update company roster. 
 
 
   ## **Demo**
-  ![Demo]()
+  ![Demo](https://github.com/ReddPhoenix/employee-tracker/blob/main/Assets/images/demo.gif?raw=true)
 
-    To view a video demo of the Employee Tracker app click on the link to the right:   *[Link to video](https://drive.google.com/file/d/1E3uxSe9090b3rzJ1p3QbtRu7vZk7vbB2/view)*
+To view a video demo of the Employee Tracker app click on the link to the right:   *[Link to video](https://drive.google.com/file/d/1E3uxSe9090b3rzJ1p3QbtRu7vZk7vbB2/view)*
  
    ## **Installation**
-  1. npm i     2. npm i inquirer   3. npm i mysql   4. npm i console.table   5. npm i dotenv   6. node app.js   
+  1. npm i     
+  2. npm i inquirer   
+  3. npm i mysql   
+  4. npm i console.table   
+  5. npm i dotenv   
+  6. node app.js   
 
 
   ## **Usage**
@@ -57,8 +62,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
   ## **Credit**
-* Mason Short Assisted with role selection menu flow
-* Jake Burzlaff & Kay Murray Assisted with dotenv deployment for protect sensitive data
+* Mason Short   - Assisted with role selection menu flow
+* Jake Burzlaff & Kay Murray   - Assisted with dotenv deployment for protect sensitive data
 * https://w3docs.com
 * https://w3schools.com
 * https://developer.mozilla.org
