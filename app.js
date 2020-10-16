@@ -2,14 +2,10 @@
 const inquirer = require("inquirer");
 const mysql = require("mysql");
 const cTable = require("console.table");
-// const db = require("db");
+
 
 // Require and configure dotenv
 require('dotenv').config();
-
-// db.connect({
-//     password: process.env.DB_PASS
-//   })
 
 // Connection to mysql
 const connection = mysql.createConnection({
@@ -22,8 +18,6 @@ const connection = mysql.createConnection({
 
 connection.connect(function (error) {
     if (error) throw error;
-    // console.log('connected!', connection.threadId);
-    // connection.end();
 });
 
 // Initial menu
@@ -54,8 +48,8 @@ function companyRoster() {
             case "End session":
                 endChoice();
                 break;
-        }
-    }) 
+        };
+    });
 };
 
 // Run app
@@ -97,8 +91,8 @@ function addChoice() {
             case "Go to Main Menu":
                 companyRoster();
                 break;
-        }
-    })
+        };
+    });
 };
 
 // Menu to select options to view departments, roles or employees
@@ -129,8 +123,8 @@ function viewChoice() {
             case "Go to Main Menu":
                 companyRoster();
                 break;
-        }
-    })
+        };
+    });
 };
 
 // Menu to select options to update roles
@@ -141,28 +135,20 @@ function updateChoice() {
             name: "updateFinal",
             message: "Please select from one of the following options:",
             choices: [
-                // "Update department",
-                // "Update roles",
                 "Update employee role",
                 "Go to Main Menu"
             ]
         }
     ]).then(update => {
         switch (update.updateFinal) {
-            case "Update department":
-                updateDepartment();
-                break;
-            case "Update roles":
-                updateRoles();
-                break;
             case "Update employee role":
                 updateEmployee();
                 break;
             case "Go to Main Menu":
                 companyRoster();
                 break;
-        }
-    })
+        };
+    });
 };
 
 // Add functions
@@ -188,7 +174,7 @@ function addDepartment() {
         } else {
             console.log("You must enter a department name!");
             addDepartment();
-        }
+        };
     });    
 };
 
@@ -322,11 +308,5 @@ function updateEmployee() {
             updateChoice();
         });
     });
-    });
+  });
 };
-// Update department
-
-
-
-
-// Update employee
